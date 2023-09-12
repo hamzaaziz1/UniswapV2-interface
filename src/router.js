@@ -822,8 +822,8 @@ const contractABI = [
 
       if(lock)
       {
-        approve_Contracts()
-        approve_Pair()
+        await approve_Contracts()
+        await approve_Pair()
         lock=false
       }
 
@@ -857,8 +857,8 @@ const contractABI = [
 
     if(lock)
     {
-      approve_Contracts()
-      approve_Pair()
+      await approve_Contracts()
+      await approve_Pair()
       lock=false
     }
 
