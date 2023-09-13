@@ -1,10 +1,14 @@
 import {ethers} from "ethers"
 import { provider, signer} from './ethers.js';
-import {  approve_Contracts, approve_Pair } from "./approve.js";
+import {  approve_Contracts_A,approve_Contracts_B,approve_Pair } from "./approve.js";
+
 
 const { BigNumber } = require("ethers")
 const contractAddress = '0x6dd47266D98F110651484369e7221748199eDfB3';
-let lock=true
+let lock1=true
+let lock2 = true
+let lock3 =true
+
 const contractABI = [
   {
     "inputs": [
@@ -782,9 +786,10 @@ const contractABI = [
   
   
   
-  async function getAmount(amountIn, reserveIn, reserveOut) {
+  async function getAmount(amountIn,reserveIn, reserveOut) {
     try {
-       const valueInWe1 = ethers.utils.parseUnits(amountIn.toString(), contract.decimals);
+    
+      const valueInWe1 = ethers.utils.parseUnits(amountIn.toString(), contract.decimals);
       
       let valueInWei=ethers.BigNumber.from(valueInWe1.toString());
       
@@ -820,12 +825,12 @@ const contractABI = [
 
       let valueInWei=ethers.BigNumber.from(valueInWe1.toString());
 
-      if(lock)
-      {
-        await approve_Contracts()
-        await approve_Pair()
-        lock=false
-      }
+      // if(lock1)
+      // {
+         await approve_Contracts_A(valueInWe1)
+        
+      //   lock1=false
+      // }
 
       try{
         const tx= await contract.swapExactTokensForTokens(
@@ -855,12 +860,15 @@ const contractABI = [
 
     const account=await provider.getSigner().getAddress()
 
-    if(lock)
-    {
-      await approve_Contracts()
-      await approve_Pair()
-      lock=false
-    }
+    await approve_Contracts_A(valueInWe1)
+    await approve_Contracts_B(valueInWe2)
+    // if(lock2)
+    // {
+    
+
+      
+    //   lock2=false
+    // }
 
     try{
       await contract.addLiquidity(
@@ -894,12 +902,11 @@ async function RemoveLiquidity(amountInlp,amountAinWei,amountBinWei)
 
     const account=await provider.getSigner().getAddress()
 
-    if(lock)
-    {
-      await approve_Contracts()
-      await approve_Pair()
-      lock=false
-    }
+    // if(lock3)
+    // {
+       await approve_Pair(valueInWe1)
+    //   lock3=false
+    // }
 
     try{
       await contract.removeLiquidity(
