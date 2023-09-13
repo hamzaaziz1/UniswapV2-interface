@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { RemoveLiquidity } from "../router";
-
+import { getExpectedAmount } from "../pair";
 
 const SimpleInput = (props) => {
   
@@ -13,16 +13,17 @@ const SimpleInput = (props) => {
   // setIsWalletConnected(true)
   let formIsValid = false;
 
+  const set=async (amountLP)=>{
+  
+    const [ReturnamountA,ReturnamountB]  = await getExpectedAmount(amountLP)
+    setAmountTKN(ReturnamountA)
+    setAmountMHZ(ReturnamountB)
+    
+  }
+
   const amountChangeLPHandler = (e)=>{
     setAmount(e.target.value)
-  }
-
-  const amountChangeTKNHandler = (e)=>{
-    setAmountTKN(e.target.value)
-  }
-
-  const amountChangeMHZHandler = (e)=>{
-    setAmountMHZ(e.target.value)
+    set(e.target.value)
   }
 
   useEffect(()=>{
@@ -47,6 +48,7 @@ const SimpleInput = (props) => {
           id="return-amount"
           onChange={amountChangeLPHandler}
           value={amountLP}
+          
         />
       </div> 
               
@@ -55,7 +57,7 @@ const SimpleInput = (props) => {
         <input
           type="number"
           id="amount"
-          onChange={amountChangeTKNHandler}
+          readOnly
           value={amountTKN}
         />
       </div>
@@ -65,7 +67,7 @@ const SimpleInput = (props) => {
         <input
           type="number"
           id="return-amount"
-          onChange={amountChangeMHZHandler}
+          readOnly
           value={amountMHZ}
         />
       </div>

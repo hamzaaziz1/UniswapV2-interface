@@ -1,5 +1,8 @@
 import {ethers} from "ethers"
 import { provider, signer} from './ethers.js';
+import { contract_A, contractAddress_A} from "./A.js"
+import { contract_B,contractAddress_B} from "./B.js"
+
 
 const contractAddress = '0xb9ed088037C63f6a1a0FE77C78047395a44D83Db';
 const contractABI = [
@@ -740,4 +743,19 @@ const contractABI = [
   return a;
 } 
 
-  export  {contract_pair,callreserv1, callreserv2}
+async function getExpectedAmount(amountInlp){
+
+  const balance_A=await contract_A.balanceOf('0xb9ed088037C63f6a1a0FE77C78047395a44D83Db')
+  const balance_B=await contract_B.balanceOf('0xb9ed088037C63f6a1a0FE77C78047395a44D83Db')
+  const liquidity = amountInlp
+
+  const total_supply=await contract_pair.totalSupply()
+
+   const amount0 = (liquidity*balance_A) / total_supply; // using balances ensures pro-rata distribution
+   const amount1 = (liquidity*balance_B) / total_supply;
+
+  //console.log(amount0,"   ",amount1)
+  return [amount0, amount1]
+}
+
+  export  {contract_pair,callreserv1, callreserv2,getExpectedAmount}

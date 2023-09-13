@@ -1,7 +1,7 @@
 import {ethers} from "ethers"
 import { provider, signer} from './ethers.js';
 
-const contractAddress = '0xbEBFE26Ea92ac3e47b059790Ad087F9A8e1020a2';
+const contractAddress_B = '0xbEBFE26Ea92ac3e47b059790Ad087F9A8e1020a2';
 const contractABI = [{
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -279,6 +279,6 @@ const contractABI = [{
 }]
 
 
-const contract_B = new ethers.Contract(contractAddress, contractABI, signer);
+const contract_B = new ethers.Contract(contractAddress_B, contractABI, signer);
 
-export { contract_B};
+export { contract_B,contractAddress_B};

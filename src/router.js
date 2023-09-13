@@ -3,6 +3,7 @@ import { provider, signer} from './ethers.js';
 import {  approve_Contracts_A,approve_Contracts_B,approve_Pair } from "./approve.js";
 
 
+
 const { BigNumber } = require("ethers")
 const contractAddress = '0x6dd47266D98F110651484369e7221748199eDfB3';
 let lock1=true
@@ -923,4 +924,7 @@ async function RemoveLiquidity(amountInlp,amountAinWei,amountBinWei)
       console.error('Error:', error);
     }  
   }
+  //-----------------------------------------------------------------------------------//
+
+
   export  {contract,getAmount,swapToken,addLiquidity,RemoveLiquidity}
