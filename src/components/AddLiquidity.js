@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { addLiquidity } from "../router";
+import { addLiquidity,getAmountforLiquidity } from "../router";
 
 
 const SimpleInput = (props) => {
@@ -14,8 +14,14 @@ const SimpleInput = (props) => {
   // setIsWalletConnected(true)
   let formIsValid = false;
 
+  const getresult=async (amount)=>{
+    const result= await getAmountforLiquidity(amount)
+    setAmountMHZ(result)
+  }
+
   const amountChangeHandler = (e)=>{
     setAmount(e.target.value)
+    getresult(e.target.value)
   }
   const amountMHZChangeHandler = (e)=>{
     setAmountMHZ(e.target.value)
@@ -50,7 +56,8 @@ const SimpleInput = (props) => {
         <input
           type="number"
           id="return-amount"
-          onChange={amountMHZChangeHandler}
+          //onChange={amountMHZChangeHandler}
+          readOnly
           value={amountMHZ}
         />
       </div>

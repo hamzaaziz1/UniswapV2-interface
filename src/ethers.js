@@ -8,12 +8,15 @@ const provider = new ethers.providers.Web3Provider(window.ethereum)  //read-only
 await provider.send("eth_requestAccounts", []);
 
 const SEPOLIA_NETWORK_ID = 11155111;
-
+try{
 await window.ethereum.request({
     method: "wallet_switchEthereumChain",
     params: [{ chainId: `0x${SEPOLIA_NETWORK_ID.toString(16)}` }],
   });
-
+}
+catch(error){
+    console.log(error)
+}
 const signer = provider.getSigner()  //to sign messages and do transcations 
 
 export { provider, signer};

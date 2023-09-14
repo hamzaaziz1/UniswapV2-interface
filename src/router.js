@@ -1,7 +1,7 @@
 import {ethers} from "ethers"
 import { provider, signer} from './ethers.js';
 import {  approve_Contracts_A,approve_Contracts_B,approve_Pair } from "./approve.js";
-
+import { contract_pair,callreserv1,callreserv2 } from "./pair.js";
 
 
 const { BigNumber } = require("ethers")
@@ -924,7 +924,19 @@ async function RemoveLiquidity(amountInlp,amountAinWei,amountBinWei)
       console.error('Error:', error);
     }  
   }
+
+  async function getAmountforLiquidity(amountA)
+  {
+    const reserveA=await callreserv1()
+    const reserveB=await callreserv2()
+
+    console.log(reserveA, reserveB, amountA)
+
+    const amountB = amountA*(reserveA / reserveB);
+
+    return amountB
+  }
   //-----------------------------------------------------------------------------------//
 
 
-  export  {contract,getAmount,swapToken,addLiquidity,RemoveLiquidity}
+  export  {contract,getAmount,swapToken,addLiquidity,RemoveLiquidity,getAmountforLiquidity}
