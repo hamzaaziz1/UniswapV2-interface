@@ -6,11 +6,14 @@ const provider = new ethers.providers.Web3Provider(window.ethereum)  //read-only
 
 // MetaMask requires requesting permission to connect users accounts
 await provider.send("eth_requestAccounts", []);
-//  const accounts = await provider.getSigner().getAddress();
-//  console.log(accounts)
-// The MetaMask plugin also allows signing transactions to
-// send ether and pay to change state within the blockchain.
-// For this, you need the account signer...
+
+const SEPOLIA_NETWORK_ID = 11155111;
+
+await window.ethereum.request({
+    method: "wallet_switchEthereumChain",
+    params: [{ chainId: `0x${SEPOLIA_NETWORK_ID.toString(16)}` }],
+  });
+
 const signer = provider.getSigner()  //to sign messages and do transcations 
 
 export { provider, signer};
