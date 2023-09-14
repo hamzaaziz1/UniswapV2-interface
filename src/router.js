@@ -930,7 +930,7 @@ async function RemoveLiquidity(amountInlp,amountAinWei,amountBinWei)
     const reserveA=await callreserv1()
     const reserveB=await callreserv2()
 
-    console.log(reserveA, reserveB, amountA)
+    // console.log(reserveA, reserveB, amountA)
 
     const amountB = amountA*(reserveA / reserveB);
 
